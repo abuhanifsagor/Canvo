@@ -34,12 +34,12 @@ export default function Navbar() {
       >
         {/* Logo */}
         <div className="navbar-start">
-          <Link to="/" className="flex items-center gap-2">
+          <a href="#" className="flex items-center gap-2">
             <img src={logo} className="w-9 h-9 rounded-xl" alt="logo" />
             <span className="font-semibold text-lg text-gray-800">
               Canvo
             </span>
-          </Link>
+          </a>
         </div>
 
         {/* Desktop Menu */}

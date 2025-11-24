@@ -8,7 +8,7 @@ export default function Footer() {
       bg-fixed bg-center sm:bg-scroll bg-no-repeat"
     >
       {/* DARK OVERLAY */}
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
+      <div className="absolute inset-0 backdrop-blur-[3px] bg-black/50 " />
 
       {/* MAIN CONTENT */}
       <div className="relative z-10 w-full bg-transparent pb-20">

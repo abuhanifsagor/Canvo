@@ -18,7 +18,7 @@ export default function Navbar() {
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, type: "spring", bounce: 0.35 }}
-      className="w-full flex sticky z-50 -top-4 justify-center pt-4 px-4"
+      className="w-full flex sticky z-50 -top-3 justify-center pt-4 px-4"
     >
       <div
         className="

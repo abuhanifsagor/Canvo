@@ -6,7 +6,6 @@ export default function ContactPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Email:", email);
     setEmail("");
   };
 

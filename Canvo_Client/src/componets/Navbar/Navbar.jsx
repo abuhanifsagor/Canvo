@@ -1,15 +1,17 @@
 import React from "react";
 import { Link } from "react-router";
 import logo from "../../assets/images/logo.png";
-import { motion } from "motion/react"
+import { motion } from "motion/react";
 import useScrollSpy from "../../hooks/useScrollSpy";
+import { useAuth } from "../../context/AuthProvider";
 
-const linkBase =
-  "px-2 py-1 transition text-gray-700 hover:text-[#0BB8A2]";
+const linkBase = "px-2 py-1 transition text-gray-700 hover:text-[#0BB8A2]";
 const activeLink =
   "px-2 py-1 text-[#0BB8A2] font-semibold border-b-2 border-[#0BB8A2]";
 
 export default function Navbar() {
+  const { user, logout } = useAuth();
+
   const sections = ["home", "about", "blog", "contact"];
   const active = useScrollSpy(sections, 150);
 
@@ -36,16 +38,13 @@ export default function Navbar() {
         <div className="navbar-start">
           <a href="#" className="flex items-center gap-2">
             <img src={logo} className="w-9 h-9 rounded-xl" alt="logo" />
-            <span className="font-semibold text-lg text-gray-800">
-              Canvo
-            </span>
+            <span className="font-semibold text-lg text-gray-800">Canvo</span>
           </a>
         </div>
 
         {/* Desktop Menu */}
         <div className="navbar-center hidden md:flex">
           <ul className="menu menu-horizontal px-1 font-medium">
-
             <li>
               <a
                 href="#home"
@@ -81,27 +80,68 @@ export default function Navbar() {
                 Contact
               </a>
             </li>
-
           </ul>
         </div>
 
-        {/* Desktop Button */}
-        <div className="navbar-end hidden md:flex">
-          <Link
-            to="/signup"
-            className="
-              bg-[#0BB8A2] 
-              text-white 
-              px-5 
-              py-2 
-              rounded-full 
-              shadow 
-              hover:bg-[#0aa590] 
-              transition
-            "
-          >
-            Sign Up
-          </Link>
+        {/* Desktop Right Section */}
+        <div className="navbar-end  hidden md:flex items-center gap-4">
+          {!user && (
+            <Link
+              to="/auth/signup"
+              className="
+        bg-[#0BB8A2] 
+        text-white 
+        px-5 
+        py-2 
+        rounded-full 
+        shadow 
+        hover:bg-[#0aa590] 
+        transition
+      "
+            >
+              Sign Up
+            </Link>
+          )}
+
+          {/* If user is logged in → show Avatar */}
+          {user && (
+            <div className="dropdown pr-3 dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10  border border-[#0BB8A2] rounded-full">
+                  <img
+                    src={user.photoURL || "https://i.ibb.co/8xqv5Qx/user.png"}
+                    referrerPolicy="no-referrer"
+                    alt="User Avatar"
+                  />
+                </div>
+              </div>
+
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content bg-white text-gray-800 rounded-box z-50 mt-3 w-52 p-2 shadow"
+              >
+                <li>
+                  <a className="justify-between">
+                    Profile
+                    <span className="badge">New</span>
+                  </a>
+                </li>
+                <li>
+                  <a>Settings</a>
+                </li>
+
+                <li>
+                  <button onClick={logout} className="text-red-600 font-medium">
+                    Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
 
         {/* Mobile */}
@@ -115,8 +155,12 @@ export default function Navbar() {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               </svg>
             </label>
 
@@ -137,7 +181,6 @@ export default function Navbar() {
                 w-48
               "
             >
-
               <li>
                 <a
                   href="#home"
@@ -189,7 +232,6 @@ export default function Navbar() {
                   Sign Up
                 </Link>
               </li>
-
             </ul>
           </div>
         </div>

@@ -13,7 +13,6 @@ const BG_IMAGE =
 export default function ChatPage() {
   const { user, logout } = useAuth();
   var image = user?.photoURL;
-  console.log(image);
   const [messages, setMessages] = useState(mockMessages());
   const [text, setText] = useState("");
   const [uploading, setUploading] = useState(false);

@@ -99,27 +99,31 @@ export default function Signup() {
   // FINAL SUBMIT → Firebase only
   // -----------------------------
   const handleSignup = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!name) return toast.error("Please enter your name");
-    if (!terms) return toast.error("Accept the Terms & Privacy");
-    if (!photoURL) return toast.error("Upload your profile photo");
+  if (!name) return toast.error("Please enter your name");
+  if (!terms) return toast.error("Accept the Terms & Privacy");
+  if (!photoURL) return toast.error("Upload your profile photo");
 
-    setLoading(true);
+  setLoading(true);
 
-    try {
-      const result = await createAccount(email, password);
-      const user = result.user;
+  try {
+    const result = await createAccount(email, password);
+    const user = result.user;
 
-      await updateUserProfile(user, name, photoURL);
+    await updateUserProfile(user, name, photoURL);
 
-      toast.success("Account created successfully!");
-    } catch (err) {
-      toast.error(err.message || "Signup failed");
-    }
+    // ✨ FIX: Refresh the Firebase user so onAuthStateChanged sees changes
+    await user.reload();
 
-    setLoading(false);
-  };
+    toast.success("Account created successfully!");
+  } catch (err) {
+    toast.error(err.message || "Signup failed");
+  }
+
+  setLoading(false);
+};
+
 
   return (
     <motion.div
